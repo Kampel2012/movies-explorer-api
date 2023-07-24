@@ -38,7 +38,7 @@ router.delete(
   '/:movieId',
   celebrate({
     params: Joi.object().keys({
-      movieId: Joi.string().length(24).hex(), //! Обязательное поле поправить
+      movieId: Joi.string().length(24).hex().required(),
     }),
   }),
   deleteMovieById,
