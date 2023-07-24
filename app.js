@@ -14,7 +14,7 @@ import { NotFoundError } from './errors/errors.js';
 import handleError from './middlewares/handeError.js';
 import { requestLogger, errorLogger } from './middlewares/logger.js';
 
-const { PORT = 3000, DB_URL = 'mongodb://127.0.0.1:27017/moviesDb' } = process.env;
+const { PORT = 3000, DB_URL = 'mongodb://127.0.0.1:27017/bitfilmsdb' } = process.env;
 
 const limiter = rateLimit({
   windowMs: 10 * 60 * 1000,

@@ -35,10 +35,10 @@ router.post(
 );
 
 router.delete(
-  '/:movieId', //! может где-то встретиться неожиданно
+  '/:movieId',
   celebrate({
     params: Joi.object().keys({
-      cardId: Joi.string().length(24).hex(),
+      movieId: Joi.string().length(24).hex(), //! Обязательное поле поправить
     }),
   }),
   deleteMovieById,
