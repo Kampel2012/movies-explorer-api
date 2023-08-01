@@ -1,16 +1,11 @@
-/* eslint-disable no-underscore-dangle */
 import express from 'express';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import 'dotenv/config';
 import cors from 'cors';
-/* import { fileURLToPath } from 'url';
-import path from 'path'; */
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import mongoose from 'mongoose';
 import { errors } from 'celebrate';
 import routes from './routes/index.js';
-import { NotFoundError } from './errors/errors.js';
 import handleError from './middlewares/handeError.js';
 import { requestLogger, errorLogger } from './middlewares/logger.js';
 
@@ -25,16 +20,10 @@ const limiter = rateLimit({
 
 const app = express();
 
-/* const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const staticFolderPath = path.join(__dirname, 'public'); */
-
 mongoose
   .connect(DB_URL, {
     useNewUrlParser: true,
   });
-
-/* app.use(express.static(staticFolderPath)); */
 
 app.use(helmet());
 
@@ -47,10 +36,6 @@ app.use(requestLogger);
 app.use(cors({ origin: true, credentials: true }));
 
 app.use(routes);
-
-app.use('*', () => {
-  throw new NotFoundError('Данная страница не найдена');
-});
 
 app.use(errorLogger);
 

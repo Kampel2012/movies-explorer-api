@@ -4,6 +4,7 @@ import { login, addNewUser } from '../controllers/usersControllers.js';
 import auth from '../middlewares/auth.js';
 import userRouter from './usersRoutes.js';
 import movieRouter from './movieRouter.js';
+import NotFoundError from '../errors/NotFoundError.js';
 
 const router = Router();
 
@@ -31,5 +32,9 @@ router.use(
 
 router.use('/users', auth, userRouter);
 router.use('/movies', auth, movieRouter);
+
+router.use('*', () => {
+  throw new NotFoundError('Данная страница не найдена');
+});
 
 export default router;

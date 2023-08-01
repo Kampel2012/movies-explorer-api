@@ -82,15 +82,6 @@ export async function login(req, res, next) {
 export async function addNewUser(req, res, next) {
   try {
     const newUser = req.body;
-    if (
-      !newUser.email
-      || !newUser.name
-      || !newUser.password
-      || !validator.isEmail(newUser.email)
-    ) {
-      throw new mongoose.Error.ValidationError();
-    }
-
     newUser.password = await bcrypt.hash(newUser.password, SALT_ROUNDES);
     const user = await User.create(newUser);
     const { email, name } = user;

@@ -1,6 +1,5 @@
 import { constants as http2Constants } from 'node:http2';
 import mongoose from 'mongoose';
-import validator from 'validator';
 import Movie from '../models/movieModel.js';
 import {
   BadRequestError,
@@ -50,31 +49,8 @@ export const deleteMovieById = async (req, res, next) => {
 };
 
 export const addNewMovie = async ({ user, body }, res, next) => {
-  const requiredFields = [
-    'country',
-    'director',
-    'duration',
-    'year',
-    'description',
-    'image',
-    'trailerLink',
-    'thumbnail',
-    'movieId',
-    'nameRU',
-    'nameEN',
-  ];
-
   try {
     const { _id } = user;
-    // eslint-disable-next-line no-restricted-syntax
-    for (const field of requiredFields) {
-      if (!body[field] || !validator.isURL(body.trailerLink)
-        || !validator.isURL(body.thumbnail)
-        || !validator.isURL(body.image)) {
-        throw new mongoose.Error.ValidationError();
-      }
-    }
-
     const movie = await Movie.create({
       ...body,
       owner: _id,
@@ -85,58 +61,3 @@ export const addNewMovie = async ({ user, body }, res, next) => {
     errorHandler(error, res, next);
   }
 };
-
-// неоптимизированная функция, которую линтер пропускает
-/* export const addNewMovie = async (req, res, next) => {
-  try {
-    const { _id } = req.user;
-    const {
-      country,
-      director,
-      duration,
-      year,
-      description,
-      image,
-      trailerLink,
-      thumbnail,
-      movieId,
-      nameRU,
-      nameEN,
-    } = req.body;
-    if (
-      !country ||
-      !director ||
-      !duration ||
-      !year ||
-      !description ||
-      !image ||
-      !validator.isURL(image) ||
-      !trailerLink ||
-      !validator.isURL(trailerLink) ||
-      !thumbnail ||
-      !validator.isURL(thumbnail) ||
-      !movieId ||
-      !nameRU ||
-      !nameEN
-    ) {
-      throw new mongoose.Error.ValidationError();
-    }
-    const movie = await Movie.create({
-      country,
-      director,
-      duration,
-      year,
-      description,
-      image,
-      trailerLink,
-      thumbnail,
-      movieId,
-      nameRU,
-      nameEN,
-      owner: _id,
-    });
-    res.status(http2Constants.HTTP_STATUS_CREATED).send(movie);
-  } catch (error) {
-    errorHandler(error, res, next);
-  }
-}; */

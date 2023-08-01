@@ -7,7 +7,8 @@
   "scripts": {
     "test": "npm test",
     "start": "node app.js",
-    "dev": "cross-env NODE_ENV=develop nodemon app.js"
+    "dev": "cross-env NODE_ENV=develop nodemon app.js",
+    "lint": "npx eslint ."
   },
   "author": "Kampel2012",
   "dependencies": {

@@ -10,8 +10,8 @@ router.patch(
   '/me',
   celebrate({
     body: Joi.object().keys({
-      name: Joi.string(),
-      email: Joi.string(),
+      name: Joi.string().min(2),
+      email: Joi.string().email(),
     }),
   }),
   updateUser,
