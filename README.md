@@ -5,4 +5,4 @@
 Ссылки на проект
 IP 51.250.24.98
 
-Backend http://api.movies.anton.glazunov.nomoredomains.xyz
+Backend https://api.movies.anton.glazunov.nomoredomains.xyz
