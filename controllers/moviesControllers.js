@@ -26,8 +26,9 @@ function errorHandler(error, res, next) {
 
 export const getAllMovies = async (req, res, next) => {
   try {
-    const allMovies = await Movie.find({});
-    res.status(http2Constants.HTTP_STATUS_OK).send(allMovies);
+    const { _id } = req.user;
+    const movies = await Movie.find({ owner: _id }).populate('owner');
+    res.status(http2Constants.HTTP_STATUS_OK).send(movies);
   } catch (error) {
     errorHandler(error, res, next);
   }
