@@ -1,0 +1,3 @@
+NODE_ENV=string
+SECRET_KEY=string
+DB_URL=string
