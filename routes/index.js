@@ -30,8 +30,10 @@ router.use(
   addNewUser,
 );
 
-router.use('/users', auth, userRouter);
-router.use('/movies', auth, movieRouter);
+router.use(auth)
+
+router.use('/users', userRouter);
+router.use('/movies', movieRouter);
 
 router.use('*', () => {
   throw new NotFoundError('Данная страница не найдена');
